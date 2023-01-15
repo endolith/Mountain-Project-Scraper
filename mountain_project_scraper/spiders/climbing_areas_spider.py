@@ -29,9 +29,11 @@ class ClimbingAreasSpider(scrapy.Spider):
     def parse(self, response):
         if self.relativeURL != '/destinations':
             # use the following links variable if testing from an individual state page (e.g. WA states routes)
+            # Finds the left nav pane with state name at the top and sub-areas inside it.
             links = response.css('#viewerLeftNavColContent a[target="_top"] ::attr(href)').extract()
         else:
             # use the following links variable if testing from the homepage
+            # Finds the section labeled "Rock Climbing Guide to 167,464 Routes" "Top Classic Routes"
             links = response.css('span.destArea a::attr(href)').extract()
 
         for url in links:
