@@ -37,7 +37,7 @@ class ClimbingAreasSpider(scrapy.Spider):
             links = response.css('div#route-guide a::attr(href)').extract()
 
         for url in links:
-            yield scrapy.Request(self.domain + url, callback=self.parse_coordinates)
+            yield scrapy.Request(url, callback=self.parse_coordinates)
 
     def parse_coordinates(self, response):
         area_name = re.sub(CLIMBING_AREA_PREFIXES, '', response.css('h1.dkorange em ::text').extract_first()).strip()
@@ -56,7 +56,7 @@ class ClimbingAreasSpider(scrapy.Spider):
             pass
         links = response.css('#viewerLeftNavColContent a[target="_top"] ::attr(href)').extract()
         for url in links:
-            yield scrapy.Request(self.domain + url, callback=self.parse_coordinates)
+            yield scrapy.Request(url, callback=self.parse_coordinates)
 
     def process_latitude_longitude(self,response):
         if 'Location' not in response.css('#rspCol800 div.rspCol table tr:nth-child(2) td ::text').extract()[0]:
