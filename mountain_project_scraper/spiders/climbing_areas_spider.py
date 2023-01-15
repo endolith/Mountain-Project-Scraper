@@ -14,13 +14,13 @@ class ClimbingAreasSpider(scrapy.Spider):
 
     # URL should be preceded by a /
     # e.g. /destinations or /v/STATENAME/ID
-    relativeURL = '/v/hawaii/106316122'
+    relativeURL = '/area/106316122/hawaii'
 
     start_urls = [domain + relativeURL]
     allowed_domains = ['mountainproject.com']
     rules = [
         Rule(
-            LinkExtractor(allow='v/(.+)'),
+            LinkExtractor(allow='area/(.+)'),
             callback='parse',
             follow=True
         )
